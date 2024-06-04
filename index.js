@@ -25,10 +25,6 @@ app.use(
   })
 );
 
-// require('./src/routes/whatsapp.webhook.routes')(app);
-// require('./src/routes/messenger.webhook.routes')(app);
-// require('./routes/instagram.webhook.routes')(app);
-
 // require('./src/routes/common.routes')(app);
 
 // Set port, listen for requests
