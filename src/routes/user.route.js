@@ -1,3 +1,50 @@
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: User management
+ */
+
+/**
+ * @swagger
+ * /api/user:
+ *   post:
+ *     summary: Create a new user
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: The created user.
+ *   get:
+ *     summary: Get all users
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: The list of users.
+ */
+
+/**
+ * @swagger
+ * /api/user/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: The user description by ID.
+ *   put:
+ *     summary: Update a user by ID
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: The updated user.
+ *   delete:
+ *     summary: Delete a user by ID
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: The deleted user.
+ */
+
 module.exports = (app) => {
     const userController = require('../controllers/user.controller');
 
