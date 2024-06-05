@@ -25,7 +25,9 @@ app.use(
   })
 );
 
-// require('./src/routes/common.routes')(app);
+require('./src/routes/employee.route').default(app);
+require('./src/routes/user.route').default(app);
+require('./src/routes/document.route')(app);
 
 // Set port, listen for requests
 const PORT = process.env.PORT;
