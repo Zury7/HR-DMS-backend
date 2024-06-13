@@ -6,24 +6,16 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 
+// initiate admins
+const adminInit = require('./src/init/admin.init');
+
 // Set port, listen for requests
 const PORT = process.env.PORT;
 const SWAGGER_PORT = process.env.SWAGGER_PORT;
 
-// Database connection
-const db = require('./src/configs/db.config');
-
-db.authenticate()
-  .then(() => {
-    console.log('Database connected...');
-  })
-  .catch((err) => {
-    console.log('Error connecting to the database', err);
-  });
-
 const swaggerOptions = {
   swaggerDefinition: {
-    openapi: '3.0.0', 
+    openapi: '3.0.0',
     info: {
       title: 'Employee Document Management API',
       version: '1.0.0',
@@ -39,6 +31,15 @@ const swaggerOptions = {
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
+// Initialize admin
+(async () => {
+  try {
+      await adminInit();
+  } catch (error) {
+      console.error('Error initializing admin:', error);
+  }
+})();
 
 // Create express app
 const app = express();
@@ -59,5 +60,7 @@ require('./src/routes/document.route')(app);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  console.log(`Swagger documentation is available at http://localhost:${SWAGGER_PORT}/api-docs`);
+  console.log(
+    `Swagger documentation is available at http://localhost:${SWAGGER_PORT}/api-docs`
+  );
 });

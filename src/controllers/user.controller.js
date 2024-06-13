@@ -3,8 +3,9 @@ const UserService = require('../services/user.service');
 class UserController {
   async addUser(req, res) {
     try {
-      const user = await UserService.addUser(req.body);
-      res.status(201).json(user);
+      const status = await UserService.addUser(req.body);
+      res.status(status.status).json(status.message);
+      
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -16,6 +17,15 @@ class UserController {
       res.status(200).json(users);
     } catch (error) {
       res.status(500).json({ message: error.message });
+    }
+  }
+
+  async deleteUser(req, res) {
+    try {
+      await UserService.deleteUser(req.params.id);
+      res.status(204).send();
+    } catch (error) {
+      res.status(404).json({ message: error.message });
     }
   }
 
@@ -37,14 +47,6 @@ class UserController {
     }
   }
 
-  async deleteUser(req, res) {
-    try {
-      await UserService.deleteUser(req.params.id);
-      res.status(204).send();
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
-  }
 }
 
 module.exports = new UserController();
